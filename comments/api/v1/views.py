@@ -24,11 +24,11 @@ class ListCreateCommentViewSet(ListCreateViewSet):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
-        return Comment.objects.filter(post__id=self.kwargs['post_pk'])
+        return Comment.objects.filter(post__topic__url_name=self.kwargs['topic_pk'], post__id=self.kwargs['post_pk'])
 
     def create(self, req, topic_pk, post_pk):
-        if not Post.objects.filter(topic__url_name=topic_pk, id=post_pk).exists():
-            raise exceptions.NotFound('Post Not Found')
+        if(not Post.objects.filter(id=post_pk, topic__url_name=topic_pk).exists()):
+            raise exceptions.NotFound('Post not found')
         req.data['post'] = post_pk
         return super(ListCreateCommentViewSet, self).create(req)
 
@@ -39,7 +39,8 @@ class UpdateDeleteCommentViewSet(UpdateDeleteViewSet):
     permission_classes = (IsOwnerOrReadOnly,)
 
     def get_queryset(self):
-        return Comment.objects.filter(post__id=self.kwargs['post_pk'])
+
+        return Comment.objects.filter(post__topic__url_name=self.kwargs['topic_pk'], post__id=self.kwargs['post_pk'])
 
     def update(self, req, topic_pk, post_pk, pk):
 

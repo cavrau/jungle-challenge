@@ -1,5 +1,5 @@
 """
-API V1: Posts Serializers
+API V1: Comments Serializers
 """
 ###
 # Libraries

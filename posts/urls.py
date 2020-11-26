@@ -1,5 +1,5 @@
 """
-Accounts URL Configuration
+Posts URL Configuration
 """
 ###
 # Libraries

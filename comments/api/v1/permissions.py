@@ -1,5 +1,5 @@
 """
-API V1: Posts Permissions
+API V1: Comments Permissions
 """
 ###
 # Libraries
